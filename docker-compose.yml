@@ -1,18 +1,18 @@
 services:
-  fiap-erp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - 8081:8080
-    depends_on:
-      mysql-restaurant:
-        condition: service_healthy
-    environment:
-      MYSQL_URL: jdbc:mysql://mysql-restaurant:3306/fiap-restaurant?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
-    networks:
-      - fiap-network
+  # fiap-erp:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - 8081:8080
+  #   depends_on:
+  #     mysql-restaurant:
+  #       condition: service_healthy
+  #   environment:
+  #     MYSQL_URL: mysql-restaurant
+  #   networks:
+  #     - fiap-network
   mysql-restaurant:
     image: mysql:8.0
     volumes:
