@@ -56,14 +56,26 @@ public class UserInteractor implements UserUseCase {
                 .build();
     }
 
-	public User update(User u) {
-		log.info("updating user {}", u.getLogin());
+    public User update(User userToUpdate) {
+        Optional<User> user = userGateway.findById(userToUpdate.getId());
+        if (user.isEmpty()) {
+            throw new NotFoundException("User not found");
+        }
+        // ToDo: Deal with duplicated email and login on update
 
-		if (!userGateway.existsByEmail(u.getEmail()))
-			throw new NotFoundException("User not found here");
+        log.info("updating user {}", userToUpdate.getLogin());
 
-		return save(u);
-	}
+        User savedUser = userGateway.save(new User(userToUpdate.getId(), userToUpdate.getName(), userToUpdate.getEmail(), userToUpdate.getLogin(), userToUpdate.getPassword(), userToUpdate.getRole()));
+        return User.builder().id(savedUser.getId())
+                .name(savedUser.getName())
+                .email(savedUser.getEmail())
+                .login(savedUser.getLogin())
+                .role(savedUser.getRole())
+                .updatedAt(savedUser.getUpdatedAt())
+                .createdAt(savedUser.getCreatedAt())
+                .build();
+    }
+
 
 	public void delete(Long id) {
 		log.info("deleting user id {}", id);
