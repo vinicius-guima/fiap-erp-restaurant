@@ -1,5 +1,6 @@
 package br.com.fiap.tech.challenge.erp_restaurant.application.interactor;
 
+import br.com.fiap.tech.challenge.erp_restaurant.application.domain.Address;
 import br.com.fiap.tech.challenge.erp_restaurant.application.domain.User;
 import br.com.fiap.tech.challenge.erp_restaurant.application.exception.NotFoundException;
 import br.com.fiap.tech.challenge.erp_restaurant.application.exception.NotUniqueException;
