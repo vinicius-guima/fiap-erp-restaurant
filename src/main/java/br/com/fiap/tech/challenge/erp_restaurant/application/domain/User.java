@@ -22,8 +22,10 @@ public class User {
 
 	private String password;
 
-	private LocalDateTime lastupdate;
-	
+	private LocalDateTime updatedAt;
+
+	private LocalDateTime createdAt;
+
 	private Role role;
 	
 	public User(Long id, String name, String email, String login, String password, Role role) {
@@ -33,7 +35,8 @@ public class User {
 		this.login = login;
 		this.password = password;
 		this.role = role == null ? Role.CUSTOMER : role ;
-		this.lastupdate = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+		this.createdAt = LocalDateTime.now();
 	}
 
 }
