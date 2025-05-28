@@ -40,7 +40,7 @@ public class ExceptionHandlerController {
     public ResponseEntity<List<String>> handleNotFoundException(MethodArgumentNotValidException ex) {
         List<String> errors = new ArrayList<>();
         for (var error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + " " + error.getDefaultMessage());
+            errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }

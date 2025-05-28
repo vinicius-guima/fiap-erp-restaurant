@@ -31,7 +31,7 @@ public class UserInteractor implements UserUseCase {
     }
 
     public User findUserById(Long id) {
-        return userGateway.findById(id).orElseThrow(() -> new NotFoundException("User not found here"));
+        return userGateway.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     public User save(User userToSave) {
@@ -47,7 +47,8 @@ public class UserInteractor implements UserUseCase {
 
         log.info("saving user {}", userToSave.getLogin());
         User savedUser = userGateway.save(new User(null, userToSave.getName(), userToSave.getEmail(), userToSave.getLogin(), userToSave.getPassword(), userToSave.getRole()));
-        return User.builder().id(savedUser.getId())
+        return User.builder()
+                .id(savedUser.getId())
                 .name(savedUser.getName())
                 .email(savedUser.getEmail())
                 .login(savedUser.getLogin())
@@ -67,7 +68,8 @@ public class UserInteractor implements UserUseCase {
         log.info("updating user {}", userToUpdate.getLogin());
 
         User savedUser = userGateway.save(new User(userToUpdate.getId(), userToUpdate.getName(), userToUpdate.getEmail(), userToUpdate.getLogin(), userToUpdate.getPassword(), userToUpdate.getRole()));
-        return User.builder().id(savedUser.getId())
+        return User.builder()
+                .id(savedUser.getId())
                 .name(savedUser.getName())
                 .email(savedUser.getEmail())
                 .login(savedUser.getLogin())
@@ -78,18 +80,18 @@ public class UserInteractor implements UserUseCase {
     }
 
 
-	public void delete(Long id) {
-		log.info("deleting user id {}", id);
+    public void delete(Long id) {
+        log.info("deleting user id {}", id);
 
-		Optional<User> user = userGateway.findById(id);
-		if (user.isEmpty())
-			throw new NotFoundException("User not found here");
-		
-		Address userAddress = addressGateway.findByUserId(id);
-		if(userAddress != null)
-			addressGateway.delete(userAddress);
+        Optional<User> user = userGateway.findById(id);
+        if (user.isEmpty())
+            throw new NotFoundException("User not found");
 
-		userGateway.delete(id);
-	}
+        Address userAddress = addressGateway.findByUserId(id);
+        if (userAddress != null)
+            addressGateway.delete(userAddress);
+
+        userGateway.delete(id);
+    }
 
 }
