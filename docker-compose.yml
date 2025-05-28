@@ -1,19 +1,19 @@
 services:
-  # fiap-erp:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 8081:8080
-  #   depends_on:
-  #     mysql-restaurant:
-  #       condition: service_healthy
-  #   environment:
-  #     MYSQL_URL: mysql-restaurant
-  #   networks:
-  #     - fiap-network
-  mysql-restaurant:
+  fiap-erp-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      fiap-erp-db:
+        condition: service_healthy
+    environment:
+      MYSQL_URL: fiap-erp-db
+    networks:
+      - fiap-network
+  fiap-erp-db:
     image: mysql:8.0
     volumes:
       - mysql_data:/var/lib/mysql
@@ -24,16 +24,16 @@ services:
       MYSQL_ROOT_PASSWORD: root-fiap
       MYSQL_USER: user-fiap
     ports:
-      - 3306:3306
+      - "3306:3306"
     networks:
       - fiap-network
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       retries: 3
       interval: 30s
       timeout: 30s
 volumes:
-  mysql_data: {}
+  mysql_data: { }
 
 networks:
   fiap-network:

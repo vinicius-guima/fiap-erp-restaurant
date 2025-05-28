@@ -1,31 +1,30 @@
 package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.user;
 
-import java.time.LocalDateTime;
-
+import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserResponseDTO {
+    String id;
 
-	String id;
-	
-	String name;
+    String name;
 
-	String email;
+    String email;
 
-	String login;
-	
-	LocalDateTime lastupdate;
-	
-	Role role;
-	
+    String login;
+
+    Role role;
+
+    LocalDateTime updatedAt;
+
+    LocalDateTime createdAt;
 }
