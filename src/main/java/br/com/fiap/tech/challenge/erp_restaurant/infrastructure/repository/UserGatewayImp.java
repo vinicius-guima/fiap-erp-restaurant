@@ -54,7 +54,8 @@ public class UserGatewayImp implements UserGateway {
 
     @Override
     public User findByEmailOrLogin(String email, String login) {
-        return null;
+        UserEntity entity = userRepository.findByEmailOrLogin(email, login);
+        return entity != null ? UserMapper.INSTANCE.toDomain(entity) : null;
     }
 
 
