@@ -29,14 +29,14 @@ public class AddressControllerV1 {
     public AddressResponseDTO createAddress(
             @RequestBody AddressRequestDTO address) {
         log.info("receiving address to create", address);
-        return INSTANCE.objetcToDto(this.addressUseCase.save(INSTANCE.dtoToObject(address)));
+        return INSTANCE.objetcToDto(this.addressUseCase.create(INSTANCE.dtoToObject(address)));
     }
 
     @PutMapping
     public AddressResponseDTO updateAddress(
             @RequestBody AddressRequestDTO address) {
         log.info("receiving address to update", address);
-        return INSTANCE.objetcToDto(this.addressUseCase.save(INSTANCE.dtoToObject(address)));
+        return INSTANCE.objetcToDto(this.addressUseCase.update(INSTANCE.dtoToObject(address)));
     }
 
 }

@@ -31,12 +31,10 @@ public class AddressEntity implements Serializable {
 
     private String complement;
 
-    @NotNull
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @NotNull
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

@@ -27,10 +27,18 @@ public class AddressInteractor implements AddressUseCase {
 
     public Address getAddressByUser(Long id) {
         return Optional.ofNullable(addressGateway.findByUserId(id))
-                .orElseThrow(() -> new NotFoundException("this address is not here"));
+                .orElseThrow(() -> new NotFoundException("address not found"));
     }
 
-    public Address save(Address a) {
+    public Address create(Address a) {
+        log.info("saving address {}", a.getStreet());
+        User user = userUseCase.findUserById(a.getUser().getId());
+        a.setUser(user);
+
+        return addressGateway.save(a);
+    }
+
+    public Address update(Address a) {
         log.info("saving address {}", a.getStreet());
         User user = userUseCase.findUserById(a.getUser().getId());
         Address userAddress = this.getAddressByUser(a.getUser().getId());
