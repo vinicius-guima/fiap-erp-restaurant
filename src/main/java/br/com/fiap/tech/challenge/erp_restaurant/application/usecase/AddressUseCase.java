@@ -4,9 +4,11 @@ import br.com.fiap.tech.challenge.erp_restaurant.application.domain.Address;
 
 public interface AddressUseCase {
 
-	public Address getAddressByUser(Long id);
-	
-	public Address save(Address a);
-	
-	public Address updateUserAddress(Long idUser, Long idAddress);
+    Address getAddressByUser(Long id);
+
+    Address create(Address a);
+
+    Address update(Address a);
+
+    Address updateUserAddress(Long idUser, Long idAddress);
 }
