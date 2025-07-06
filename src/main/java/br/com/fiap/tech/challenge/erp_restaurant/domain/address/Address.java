@@ -1,9 +1,9 @@
-package br.com.fiap.tech.challenge.erp_restaurant.application.domain;
+package br.com.fiap.tech.challenge.erp_restaurant.domain.address;
+
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,9 +17,9 @@ public class Address {
     private String complement;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
-    private User user;
 
-    public Address(String state, String city, String street, int number, String complement, User user) {
+
+    public Address(String state, String city, String street, int number, String complement) {
         this.state = state;
         this.city = city;
         this.street = street;
@@ -27,6 +27,5 @@ public class Address {
         this.complement = complement;
         this.updatedAt = LocalDateTime.now();
         this.createdAt = LocalDateTime.now();
-        this.user = user;
     }
 }

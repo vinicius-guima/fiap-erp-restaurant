@@ -1,15 +1,17 @@
-package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.repository;
+package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.repository.gateway;
 
-import br.com.fiap.tech.challenge.erp_restaurant.application.domain.User;
-import br.com.fiap.tech.challenge.erp_restaurant.application.gateway.UserGateway;
-import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.persistence.UserEntity;
-import br.com.fiap.tech.challenge.erp_restaurant.mapper.UserMapper;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.fiap.tech.challenge.erp_restaurant.application.gateway.UserGateway;
+import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.persistence.UserEntity;
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.repository.UserRepository;
+import br.com.fiap.tech.challenge.erp_restaurant.mapper.UserMapper;
 
 @Component
 public class UserGatewayImp implements UserGateway {

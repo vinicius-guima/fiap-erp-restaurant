@@ -16,7 +16,18 @@ import java.util.List;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
-    @ExceptionHandler(NoResourceFoundException.class)
+   
+	@ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorMessage> handleException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage("Somethig here gone wrong"));
+    }
+	
+	@ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorMessage> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("Somethig here gone wrong"));
+    }
+	
+	@ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorMessage> handleNotFoundException(NoResourceFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("No signs of humanity here"));
     }

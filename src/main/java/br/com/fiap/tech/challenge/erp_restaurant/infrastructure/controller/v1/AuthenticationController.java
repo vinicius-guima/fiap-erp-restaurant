@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.AuthUseCase;
+import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.auth.AuthUseCase;
 import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.auth.AuthRequestDTO;
 import br.com.fiap.tech.challenge.erp_restaurant.mapper.UserMapper;
 import jakarta.validation.Valid;

@@ -1,9 +1,9 @@
 package br.com.fiap.tech.challenge.erp_restaurant.application.gateway;
 
-import br.com.fiap.tech.challenge.erp_restaurant.application.domain.User;
-
 import java.util.List;
 import java.util.Optional;
+
+import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
 
 public interface UserGateway {
 

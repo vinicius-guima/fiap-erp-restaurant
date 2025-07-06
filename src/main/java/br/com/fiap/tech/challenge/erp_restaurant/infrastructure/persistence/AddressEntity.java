@@ -1,122 +1,117 @@
 package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.persistence;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "ADDRESS")
 public class AddressEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    private String state;
+	@NotNull
+	private String state;
 
-    @NotNull
-    private String city;
+	@NotNull
+	private String city;
 
-    private String street;
+	@NotNull
+	private String street;
 
-    @NotNull
-    private int number;
+	@NotNull
+	private int number;
 
-    private String complement;
+	private String complement;
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
+	private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
+	
+	public AddressEntity() {
+		super();
+	}
 
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserEntity user;
+	public Long getId() {
+		return id;
+	}
 
-    public AddressEntity() {
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public String getStreet() {
+		return street;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-    public String getStreet() {
-        return street;
-    }
+	public int getNumber() {
+		return number;
+	}
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+	public void setNumber(int number) {
+		this.number = number;
+	}
 
-    public int getNumber() {
-        return number;
-    }
+	public String getComplement() {
+		return complement;
+	}
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+	public void setComplement(String complement) {
+		this.complement = complement;
+	}
 
-    public String getComplement() {
-        return complement;
-    }
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
 }

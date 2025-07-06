@@ -1,13 +1,13 @@
 package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.address;
 
-import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.user.UserResponseDTO;
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -22,9 +22,5 @@ public class AddressResponseDTO {
     private String complement;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
-    private UserResponseDTO user;
 
-    public UserResponseDTO getUser() {
-        return UserResponseDTO.builder().email(this.user.getEmail()).build();
-    }
 }

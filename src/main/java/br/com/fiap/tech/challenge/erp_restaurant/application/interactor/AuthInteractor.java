@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.tech.challenge.erp_restaurant.application.domain.User;
 import br.com.fiap.tech.challenge.erp_restaurant.application.exception.AuthenticationException;
 import br.com.fiap.tech.challenge.erp_restaurant.application.gateway.UserGateway;
-import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.AuthUseCase;
+import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.auth.AuthUseCase;
+import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
 
 @Service
 public class AuthInteractor implements AuthUseCase{

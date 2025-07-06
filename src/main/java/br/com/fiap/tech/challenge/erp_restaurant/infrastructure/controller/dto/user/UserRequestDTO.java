@@ -1,6 +1,5 @@
 package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.user;
 
-import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -20,9 +19,7 @@ public record UserRequestDTO(
 
 		@NotEmpty(message = "password must be not null or empty") 
 		String password,
-		
-		Role role,
-	
+			
 		Long address) {
 
 }

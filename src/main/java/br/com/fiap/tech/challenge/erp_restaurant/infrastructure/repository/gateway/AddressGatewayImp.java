@@ -1,4 +1,4 @@
-package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.repository;
+package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.repository.gateway;
 
 import static br.com.fiap.tech.challenge.erp_restaurant.mapper.AddressMapper.INSTANCE;
 
@@ -6,9 +6,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import br.com.fiap.tech.challenge.erp_restaurant.application.domain.Address;
 import br.com.fiap.tech.challenge.erp_restaurant.application.gateway.AddressGateway;
+import br.com.fiap.tech.challenge.erp_restaurant.domain.address.Address;
 import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.persistence.AddressEntity;
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.repository.AddressRepository;
 
 @Component
 public class AddressGatewayImp implements AddressGateway {
@@ -19,13 +20,9 @@ public class AddressGatewayImp implements AddressGateway {
 		this.addressRepository = addressRepository;
 	}
 
-	public Optional<Address> findById(Long id) {
+	public Address findById(Long id) {
 		Optional<AddressEntity> a = addressRepository.findById(id);
-		return a.isPresent() ? Optional.ofNullable(INSTANCE.toDomain(a.get())) : Optional.empty();
-	}
-
-	public Address findByUserId(Long id) {
-		return INSTANCE.toDomain(addressRepository.findByUserId(id));
+		return a.isPresent() ? INSTANCE.toDomain(a.get()) : null;
 	}
 
 	public Address save(Address userAddres) {

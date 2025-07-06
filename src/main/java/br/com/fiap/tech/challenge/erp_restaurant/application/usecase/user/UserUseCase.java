@@ -1,8 +1,8 @@
-package br.com.fiap.tech.challenge.erp_restaurant.application.usecase;
+package br.com.fiap.tech.challenge.erp_restaurant.application.usecase.user;
 
 import java.util.List;
 
-import br.com.fiap.tech.challenge.erp_restaurant.application.domain.User;
+import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
 
 public interface UserUseCase{
 
@@ -13,6 +13,10 @@ public interface UserUseCase{
 	User save(User u);
 	
 	User update(User u);
+	
+	User updateRole(User u);
+	
+	User updateAddress(User u);
 	
 	void delete(Long id);
 }
