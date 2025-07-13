@@ -1,73 +1,81 @@
 package br.com.fiap.tech.challenge.erp_restaurant.application.interactor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import br.com.fiap.tech.challenge.erp_restaurant.application.exception.AuthenticationException;
 import br.com.fiap.tech.challenge.erp_restaurant.application.gateway.UserGateway;
 import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
+import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@ExtendWith(MockitoExtension.class)
-class AuthInteractorTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
-	@Mock
-	private UserGateway userGateway;
+public class AuthInteractorTest {
+    private UserGateway userGateway;
+    private AuthInteractor authInteractor;
 
-	@InjectMocks
-	private AuthInteractor authInteractor;
+    @BeforeEach
+    void setUp() {
+        userGateway = mock(UserGateway.class);
+        authInteractor = new AuthInteractor(userGateway);
+    }
 
-	private User mockUserRequest;
-	private User mockFoundUser;
+    @Test
+    void deveAutenticarUsuario() {
+        User input = new User(1L, "joao", "joao@gmail.com", "joao.silva", "123456", Role.OWNER);
+        User existente = new User(1L, "joao", "joao@gmail.com", "joao.silva", "123456", Role.OWNER);
 
-	@BeforeEach
-	void setUp() {
-		mockUserRequest = User.builder().name("test").email("test@test.com").login("teste-user").password("123")
-				.build();
-		mockFoundUser = User.builder().id(1l).name("test").email("test@test.com").login("teste-user").password("123")
-				.build();
-	}
+        when(userGateway.findByEmailOrLogin("joao@gmail.com", "joao.silva")).thenReturn(existente);
 
-	@Test
-	@DisplayName("Deve autenticar o usuário com sucesso quando credenciais corretas")
-	void shouldAuthenticateUserSuccessfullyWhenCredentialsAreCorrect() {
+        User autenticado = authInteractor.authenticate(input);
 
-		when(userGateway.findByEmailOrLogin(mockUserRequest.getEmail(), mockUserRequest.getLogin()))
-				.thenReturn(mockFoundUser);
+        assertEquals(1L, autenticado.getId());
+        assertEquals("joao.silva", autenticado.getLogin());
+        assertEquals("123456", autenticado.getPassword());
+        verify(userGateway).findByEmailOrLogin("joao@gmail.com", "joao.silva");
+    }
 
-		User authenticatedUser = authInteractor.authenticate(mockUserRequest);
+    @Test
+    void deveLancarExcecaoSeUsuarioNaoExiste() {
+        User input = User.builder()
+                .login("naoexiste")
+                .password("senha")
+                .build();
 
-		assertNotNull(authenticatedUser);
-		assertEquals(mockFoundUser.getLogin(), authenticatedUser.getLogin());
-		assertEquals(mockFoundUser.getEmail(), authenticatedUser.getEmail());
-		verify(userGateway, times(1)).findByEmailOrLogin(mockUserRequest.getEmail(), mockUserRequest.getLogin());
-	}
+        when(userGateway.findByEmailOrLogin("naoexiste", "naoexiste")).thenReturn(null);
 
-	@Test
-	@DisplayName("Deve lançar AuthenticationException quando a senha estiver incorreta")
-	void shouldThrowAuthenticationExceptionWhenPasswordIsIncorrect() {
-		User userWithDifferentPassword = User.builder().name("wrong").email("test@wrong.com").login("wrong-user")
-				.password("321").build();
-		when(userGateway.findByEmailOrLogin(mockUserRequest.getEmail(), mockUserRequest.getLogin()))
-				.thenReturn(userWithDifferentPassword);
+        AuthenticationException ex = assertThrows(
+                AuthenticationException.class,
+                () -> authInteractor.authenticate(input)
+        );
 
-		AuthenticationException exception = assertThrows(AuthenticationException.class, () -> {
-			authInteractor.authenticate(mockUserRequest);
-		});
+        assertEquals("naoexiste is not in here", ex.getMessage());
+    }
 
-		assertEquals("not authorized to enter here", exception.getMessage());
-		verify(userGateway, times(1)).findByEmailOrLogin(mockUserRequest.getEmail(), mockUserRequest.getLogin());
-	}
+    @Test
+    void deveLancarExcecaoSeSenhaIncorreta() {
+        User input = User.builder()
+                .login("rafael")
+                .password("errada")
+                .email("rafael@email.com")
+                .build();
 
+        User existente = User.builder()
+                .id(2L)
+                .login("rafael")
+                .password("correta")
+                .email("rafael@email.com")
+                .role(Role.CUSTOMER)
+                .build();
+
+        when(userGateway.findByEmailOrLogin("rafael@email.com", "rafael")).thenReturn(existente);
+
+        AuthenticationException ex = assertThrows(
+                AuthenticationException.class,
+                () -> authInteractor.authenticate(input)
+        );
+
+        assertEquals("not authorized to enter here", ex.getMessage());
+    }
 }

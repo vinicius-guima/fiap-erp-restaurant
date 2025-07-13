@@ -4,7 +4,14 @@ import java.math.BigDecimal;
 import java.net.URL;
 
 import br.com.fiap.tech.challenge.erp_restaurant.domain.restaurant.Restaurant;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Builder
+@AllArgsConstructor
 public class Dish {
 
 	private Long id;
