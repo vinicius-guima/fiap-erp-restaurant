@@ -29,8 +29,8 @@ public class AddressGatewayImp implements AddressGateway {
 		return INSTANCE.toDomain(addressRepository.save(INSTANCE.toEntity(userAddres)));
 	}
 
-	public void delete(Address userAddres) {
-		addressRepository.delete(INSTANCE.toEntity(userAddres));
+	public void delete(Long idAddress) {
+		addressRepository.deleteById(idAddress);
 	}
 
 }

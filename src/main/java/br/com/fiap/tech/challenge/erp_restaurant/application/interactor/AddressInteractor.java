@@ -46,8 +46,7 @@ public class AddressInteractor implements AddressUseCase {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
+		addressGateway.delete(id);
 	}
 
 }

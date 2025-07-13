@@ -21,7 +21,7 @@ public class AuthInteractor implements AuthUseCase{
 	
 	@Override
 	public User authenticate(User u) {
-		User user = Optional.ofNullable(this.userGateway.findByEmailOrLogin(u.getLogin(), u.getLogin()))
+		User user = Optional.ofNullable(this.userGateway.findByEmailOrLogin(u.getEmail(), u.getLogin()))
 				.orElseThrow(() -> new AuthenticationException(u.getLogin() + " is not in here")) ;
 
 		if (!user.getPassword().equals(u.getPassword())) 

@@ -8,5 +8,5 @@ public interface AddressGateway {
 
 	public Address save(Address userAddres);
 
-	public void delete(Address userAddres);
+	public void delete(Long idAddress);
 }
