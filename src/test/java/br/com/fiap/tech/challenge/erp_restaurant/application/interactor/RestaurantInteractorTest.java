@@ -38,7 +38,6 @@ public class RestaurantInteractorTest {
         String kitchenType = "Italiano";
         LocalTime openingAt = LocalTime.parse("10:00");
         LocalTime closingAt = LocalTime.parse("22:00");
-        Address address = new Address("SP", "São Paulo", "Rua Teste", 123, "Apto 42");
         User owner = new User(1L, "Dono Restaurante", "dono@email.com", "donorest", "senha", Role.OWNER);
 
         Restaurant restaurant = Restaurant.builder()
@@ -68,7 +67,6 @@ public class RestaurantInteractorTest {
         String kitchenType = "Italiano";
         LocalTime openingAt = LocalTime.parse("10:00");
         LocalTime closingAt = LocalTime.parse("22:00");
-        Address address = new Address("SP", "São Paulo", "Rua Teste", 123, "Apto 42");
         User owner = new User(2L, "Dono Restaurante", "dono@email.com", "donorest", "senha", Role.CUSTOMER);
 
         Restaurant restaurant = Restaurant.builder()
@@ -94,7 +92,6 @@ public class RestaurantInteractorTest {
         String kitchenType = "Italiano";
         LocalTime openingAt = LocalTime.parse("10:00");
         LocalTime closingAt = LocalTime.parse("22:00");
-        Address address = new Address("SP", "São Paulo", "Rua Teste", 123, "Apto 42");
         User owner = new User(1L, "Dono Restaurante", "dono@email.com", "donorest", "senha", Role.OWNER);
 
         Restaurant restaurant = Restaurant.builder()
