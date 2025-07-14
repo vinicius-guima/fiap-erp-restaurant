@@ -17,7 +17,7 @@ public class OpenApiConfig {
 	OpenAPI customOpenAPI(@Value("${project.version}") String appVersion) {
 	 return new OpenAPI()
 	        .info(new Info()
-	        .title("Fiapi erp restaurant")
+	        .title("Fiap erp restaurant")
 	        .version(appVersion)
 	        .description("Fiap erp restaurant api server")
 	        .license(new License().name("Apache 2.0").url("http://springdoc.org")));
