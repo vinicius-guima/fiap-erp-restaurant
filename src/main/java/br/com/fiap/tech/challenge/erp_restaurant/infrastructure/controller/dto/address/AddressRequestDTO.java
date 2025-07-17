@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,7 +21,9 @@ public record AddressRequestDTO(
         @NotEmpty(message = "street must be not null or empty")
         String street,
        
-        @NotEmpty(message = "number must be not null or empty")
+        //@NotEmpty(message = "number must be not null or empty")
+        @NotNull(message = "number must be not null")
+        @Positive(message = "number must be positive")
         int number,
         
         String complement) {
