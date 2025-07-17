@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.erp_restaurant.domain.address;
 
 import java.time.LocalDateTime;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

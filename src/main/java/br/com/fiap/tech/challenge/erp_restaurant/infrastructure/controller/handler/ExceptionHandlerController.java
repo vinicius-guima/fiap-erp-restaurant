@@ -28,12 +28,12 @@ public class ExceptionHandlerController {
     }
 	
 	@ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ErrorMessage> handleNotFoundException(NoResourceFoundException ex) {
+    public ResponseEntity<ErrorMessage> handleValidationExceptions(NoResourceFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("No signs of humanity here"));
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorMessage> handleNotFoundException(NotFoundException ex) {
+    public ResponseEntity<ErrorMessage> handleValidationExceptions(NotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage(ex.getMessage()));
     }
 
@@ -48,7 +48,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<String>> handleNotFoundException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<List<String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         List<String> errors = new ArrayList<>();
         for (var error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());

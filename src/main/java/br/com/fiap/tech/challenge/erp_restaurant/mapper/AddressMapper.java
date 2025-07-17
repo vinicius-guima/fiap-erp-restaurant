@@ -13,7 +13,7 @@ public interface AddressMapper {
 	AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
 
-	AddressResponseDTO objetcToDto(Address a);
+	AddressResponseDTO objectToDto(Address a);
   
 	AddressEntity toEntity(Address a);
 

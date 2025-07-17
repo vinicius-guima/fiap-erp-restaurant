@@ -81,7 +81,7 @@ class ExceptionHandlerControllerTest {
         void shouldHandleNoResourceFoundException() {
             NoResourceFoundException ex = new NoResourceFoundException(GET, "/nonexistent");
 
-            ResponseEntity<ErrorMessage> response = exceptionHandlerController.handleNotFoundException(ex);
+            ResponseEntity<ErrorMessage> response = exceptionHandlerController.handleValidationExceptions(ex);
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
             assertThat(response.getBody()).isNotNull();
@@ -94,7 +94,7 @@ class ExceptionHandlerControllerTest {
             String errorMessage = "Recurso não encontrado pelo ID 123";
             NotFoundException ex = new NotFoundException(errorMessage);
 
-            ResponseEntity<ErrorMessage> response = exceptionHandlerController.handleNotFoundException(ex);
+            ResponseEntity<ErrorMessage> response = exceptionHandlerController.handleValidationExceptions(ex);
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
             assertThat(response.getBody()).isNotNull();
@@ -160,7 +160,7 @@ class ExceptionHandlerControllerTest {
             // Cria a exceção MethodArgumentNotValidException com o BindingResult mockado
             MethodArgumentNotValidException ex = new MethodArgumentNotValidException(null, bindingResult);
 
-            ResponseEntity<List<String>> response = exceptionHandlerController.handleNotFoundException(ex);
+            ResponseEntity<List<String>> response = exceptionHandlerController.handleValidationExceptions(ex);
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
             assertThat(response.getBody()).isNotNull();
@@ -176,7 +176,7 @@ class ExceptionHandlerControllerTest {
 
             MethodArgumentNotValidException ex = new MethodArgumentNotValidException(null, bindingResult);
 
-            ResponseEntity<List<String>> response = exceptionHandlerController.handleNotFoundException(ex);
+            ResponseEntity<List<String>> response = exceptionHandlerController.handleValidationExceptions(ex);
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
             assertThat(response.getBody()).isNotNull();

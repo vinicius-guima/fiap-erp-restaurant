@@ -7,11 +7,13 @@ import br.com.fiap.tech.challenge.erp_restaurant.domain.restaurant.Restaurant;
 import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @Builder
 @AllArgsConstructor
+@EqualsAndHashCode
 public class User {
 
     private Long id;

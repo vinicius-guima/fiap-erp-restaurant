@@ -17,12 +17,12 @@ public class AddressControllerV1 {
 
     private final AddressUseCase addressUseCase;
 
-    public AddressControllerV1(AddressUseCase addressService) {
-        this.addressUseCase = addressService;
+    public AddressControllerV1(AddressUseCase addressUseCase) {
+        this.addressUseCase = addressUseCase;
     }
 
     @GetMapping("{id}")
     public AddressResponseDTO findById(@PathVariable Long id) {
-        return INSTANCE.objetcToDto(addressUseCase.findById(id));
+        return INSTANCE.objectToDto(addressUseCase.findById(id));
     }
 }
