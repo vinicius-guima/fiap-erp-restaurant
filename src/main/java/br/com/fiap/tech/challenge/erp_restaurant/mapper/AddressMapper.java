@@ -1,5 +1,6 @@
 package br.com.fiap.tech.challenge.erp_restaurant.mapper;
 
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.address.AddressRequestDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,9 +14,11 @@ public interface AddressMapper {
 	AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
 
-	AddressResponseDTO objetcToDto(Address a);
+	AddressResponseDTO toResponse(Address a);
   
 	AddressEntity toEntity(Address a);
 
 	Address toDomain(AddressEntity a);
+
+	Address toDomain(AddressRequestDTO dto);
 }

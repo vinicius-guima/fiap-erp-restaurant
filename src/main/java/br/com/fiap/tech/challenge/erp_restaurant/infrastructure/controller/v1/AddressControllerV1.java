@@ -2,10 +2,9 @@ package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.v1;
 
 import static br.com.fiap.tech.challenge.erp_restaurant.mapper.AddressMapper.INSTANCE;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.address.AddressRequestDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.address.AddressUseCase;
 import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.address.AddressResponseDTO;
@@ -23,6 +22,25 @@ public class AddressControllerV1 {
 
     @GetMapping("{id}")
     public AddressResponseDTO findById(@PathVariable Long id) {
-        return INSTANCE.objetcToDto(addressUseCase.findById(id));
+        return INSTANCE.toResponse(addressUseCase.findById(id));
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public AddressResponseDTO create(@RequestBody AddressRequestDTO dto) {
+        var address = addressUseCase.create(INSTANCE.toDomain(dto));
+        return INSTANCE.toResponse(address);
+    }
+
+    @PutMapping("{id}")
+    public AddressResponseDTO update(@PathVariable Long id, @RequestBody AddressRequestDTO dto) {
+        var updated = addressUseCase.update(id, INSTANCE.toDomain(dto));
+        return INSTANCE.toResponse(updated);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        addressUseCase.delete(id);
     }
 }
