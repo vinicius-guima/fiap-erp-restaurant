@@ -5,7 +5,6 @@ import br.com.fiap.tech.challenge.erp_restaurant.application.exception.RoleExcep
 import br.com.fiap.tech.challenge.erp_restaurant.application.gateway.restaurant.RestaurantGateway;
 import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.address.AddressUseCase;
 import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.user.UserUseCase;
-import br.com.fiap.tech.challenge.erp_restaurant.domain.address.Address;
 import br.com.fiap.tech.challenge.erp_restaurant.domain.restaurant.Restaurant;
 import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
 import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +19,7 @@ import static org.mockito.Mockito.*;
 
 public class RestaurantInteractorTest {
     private UserUseCase userUseCase;
+    private AddressUseCase addressUseCase;
     private RestaurantGateway restaurantGateway;
     private RestaurantInteractor interactor;
 
@@ -28,7 +27,7 @@ public class RestaurantInteractorTest {
     void setUp() {
         userUseCase = mock(UserUseCase.class);
         restaurantGateway = mock(RestaurantGateway.class);
-        interactor = new RestaurantInteractor(userUseCase, restaurantGateway);
+        interactor = new RestaurantInteractor(userUseCase, addressUseCase, restaurantGateway);
     }
 
     @Test

@@ -35,6 +35,10 @@ public class RestaurantEntity {
 	@OneToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private UserEntity owner;
+
+	@OneToOne(optional = true)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private AddressEntity address;
 	
 	@OneToMany(mappedBy = "id" ,cascade = CascadeType.MERGE)
 	private List<DishEntity> menu;

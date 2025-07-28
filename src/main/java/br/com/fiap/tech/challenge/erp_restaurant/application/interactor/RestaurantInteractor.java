@@ -2,6 +2,8 @@ package br.com.fiap.tech.challenge.erp_restaurant.application.interactor;
 
 import java.util.List;
 
+import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.address.AddressUseCase;
+import br.com.fiap.tech.challenge.erp_restaurant.domain.address.Address;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +20,14 @@ import br.com.fiap.tech.challenge.erp_restaurant.shared.Role;
 public class RestaurantInteractor implements RestaurantUseCase {
 
 	private final UserUseCase userUseCase;
+	private final AddressUseCase addressUseCase;
 
 	private final RestaurantGateway restaurantGateway;
 
-	public RestaurantInteractor(UserUseCase userUseCase, RestaurantGateway restaurantGateway) {
+	public RestaurantInteractor(UserUseCase userUseCase, AddressUseCase addressUseCase, RestaurantGateway restaurantGateway) {
 		super();
 		this.userUseCase = userUseCase;
+		this.addressUseCase = addressUseCase;
 		this.restaurantGateway = restaurantGateway;
 	}
 
@@ -31,7 +35,16 @@ public class RestaurantInteractor implements RestaurantUseCase {
 	@Transactional
 	public Restaurant save(Restaurant restaurant) {
 		restaurant.setOwner(isUserOwner(restaurant.getOwner().getId()));
+		if (hasValidAddress(restaurant.getAddress())) {
+			Address fullAddress = addressUseCase.findById(restaurant.getAddress().getId());
+			restaurant.setAddress(fullAddress);
+		}
+
 		return restaurantGateway.save(restaurant);
+	}
+
+	private boolean hasValidAddress(Address address) {
+		return address != null && address.getId() != null;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.erp_restaurant.domain.address;
 
 import java.time.LocalDateTime;
 
+import br.com.fiap.tech.challenge.erp_restaurant.domain.restaurant.Restaurant;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class Address {
     private String complement;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
+    private Restaurant restaurant;
 
 
     public Address(String state, String city, String street, int number, String complement) {

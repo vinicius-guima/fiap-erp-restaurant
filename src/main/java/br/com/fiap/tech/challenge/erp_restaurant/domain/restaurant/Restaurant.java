@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.erp_restaurant.domain.restaurant;
 
 import java.time.LocalTime;
 
+import br.com.fiap.tech.challenge.erp_restaurant.domain.address.Address;
 import br.com.fiap.tech.challenge.erp_restaurant.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,10 +19,14 @@ public class Restaurant {
 	private LocalTime openingAt;
 	private LocalTime closingAt;
 	private User owner;
+	private Address address;
 	
 	
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	
