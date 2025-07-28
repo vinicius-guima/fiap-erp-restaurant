@@ -6,13 +6,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.address.AddressRequestDTO;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record CreateRestaurantRequestDTO(
+public record RestaurantRequestDTO(
 		
 		@NotEmpty(message = "name must be not null or empty") 
 		String name,
@@ -27,7 +26,10 @@ public record CreateRestaurantRequestDTO(
 		LocalTime closingAt,
 		
 		@NotNull(message = "ownerId must be not null or empty")
-		Long ownerId
+		Long ownerId,
+
+		@NotNull(message = "ownerId must be not null or empty")
+		Long addressId
 		) {
 
 }

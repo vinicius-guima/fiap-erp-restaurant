@@ -4,6 +4,7 @@ import static br.com.fiap.tech.challenge.erp_restaurant.mapper.RestaurantMapper.
 
 import java.util.List;
 
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.RestaurantRequestDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.restaurant.RestaurantUseCase;
-import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.CreateRestaurantRequestDTO;
 import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.RestaurantResponseDTO;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -34,7 +34,7 @@ public class RestaurantController {
 	}
 
 	@PostMapping
-	public RestaurantResponseDTO createRestaurant(@RequestBody @Valid CreateRestaurantRequestDTO restaurantDto) {
+	public RestaurantResponseDTO createRestaurant(@RequestBody @Valid RestaurantRequestDTO restaurantDto) {
 		log.info("receiving restaurant to create", restaurantDto);
 		return INSTANCE.domainToDTO(restaurantUseCase.save(INSTANCE.dtoToDomain(restaurantDto)));
 	}
@@ -58,7 +58,7 @@ public class RestaurantController {
     }
     
     @PutMapping
-    public RestaurantResponseDTO update (@RequestBody CreateRestaurantRequestDTO restaurantDto) {
+    public RestaurantResponseDTO update (@RequestBody RestaurantRequestDTO restaurantDto) {
         log.info("receiving restaurant to update", restaurantDto);
         return INSTANCE.domainToDTO(restaurantUseCase.update(INSTANCE.dtoToDomain(restaurantDto)));
     }
