@@ -4,6 +4,9 @@ import static br.com.fiap.tech.challenge.erp_restaurant.mapper.RestaurantMapper.
 
 import java.util.List;
 
+import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.RestaurantRequestDTO;
+import br.com.fiap.tech.challenge.erp_restaurant.mapper.AddressMapper;
+import br.com.fiap.tech.challenge.erp_restaurant.mapper.RestaurantMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.tech.challenge.erp_restaurant.application.usecase.restaurant.RestaurantUseCase;
-import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.CreateRestaurantRequestDTO;
 import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.RestaurantResponseDTO;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -34,7 +36,7 @@ public class RestaurantController {
 	}
 
 	@PostMapping
-	public RestaurantResponseDTO createRestaurant(@RequestBody @Valid CreateRestaurantRequestDTO restaurantDto) {
+	public RestaurantResponseDTO createRestaurant(@RequestBody @Valid RestaurantRequestDTO restaurantDto) {
 		log.info("receiving restaurant to create", restaurantDto);
 		return INSTANCE.domainToDTO(restaurantUseCase.save(INSTANCE.dtoToDomain(restaurantDto)));
 	}
@@ -47,7 +49,7 @@ public class RestaurantController {
 
 	@GetMapping("{id}")
 	public RestaurantResponseDTO getUser(@PathVariable Long id) {
-		return INSTANCE.domainToDTO(restaurantUseCase.findById(id));
+		return INSTANCE.toGetResponseDTO(restaurantUseCase.findById(id));
 	}
 	
     @DeleteMapping("{id}")
@@ -57,10 +59,12 @@ public class RestaurantController {
         restaurantUseCase.delete(id);
     }
     
-    @PutMapping
-    public RestaurantResponseDTO update (@RequestBody CreateRestaurantRequestDTO restaurantDto) {
-        log.info("receiving restaurant to update", restaurantDto);
-        return INSTANCE.domainToDTO(restaurantUseCase.update(INSTANCE.dtoToDomain(restaurantDto)));
+    @PutMapping("{id}")
+    public RestaurantResponseDTO update (@PathVariable Long id, @RequestBody RestaurantRequestDTO restaurantDto) {
+        log.info("receiving restaurant to update", id);
+
+		var updated = restaurantUseCase.update(id, RestaurantMapper.INSTANCE.dtoToDomain(restaurantDto));
+		return RestaurantMapper.INSTANCE.domainToDTO(updated);
     }
 
 

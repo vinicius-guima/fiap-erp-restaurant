@@ -3,15 +3,8 @@ package br.com.fiap.tech.challenge.erp_restaurant.infrastructure.persistence;
 import java.time.LocalTime;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import br.com.fiap.tech.challenge.erp_restaurant.domain.address.Address;
+import jakarta.persistence.*;
 
 @Entity(name = "RESTAURANT")
 public class RestaurantEntity {
@@ -31,10 +24,14 @@ public class RestaurantEntity {
 
 	@Column(nullable = false)
 	private LocalTime closingAt;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private UserEntity owner;
+
+	@OneToOne(optional = true)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private AddressEntity address;
 	
 	@OneToMany(mappedBy = "id" ,cascade = CascadeType.MERGE)
 	private List<DishEntity> menu;
@@ -96,6 +93,14 @@ public class RestaurantEntity {
 
 	public void setMenu(List<DishEntity> menu) {
 		this.menu = menu;
+	}
+
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
 	}
 	
 	
