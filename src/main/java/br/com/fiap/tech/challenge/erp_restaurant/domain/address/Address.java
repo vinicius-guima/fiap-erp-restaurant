@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 
 import br.com.fiap.tech.challenge.erp_restaurant.domain.restaurant.Restaurant;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Address {
 
     private Long id;
@@ -29,5 +31,9 @@ public class Address {
         this.complement = complement;
         this.updatedAt = LocalDateTime.now();
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Address(Long id) {
+        this.id = id;
     }
 }

@@ -66,9 +66,17 @@ public class RestaurantInteractor implements RestaurantUseCase {
 	}
 
 	@Override
-	public Restaurant update(Restaurant restaurant) {
-		findById(restaurant.getId());
-		return restaurantGateway.save(restaurant);
+	public Restaurant update(Long id, Restaurant restaurantNew) {
+		Restaurant existing = findById(id);
+
+		existing.setName(restaurantNew.getName());
+		existing.setKitchenType(restaurantNew.getKitchenType());
+		existing.setOpeningAt(restaurantNew.getOpeningAt());
+		existing.setClosingAt(restaurantNew.getClosingAt());
+		existing.setOwnerId(restaurantNew.getOwner().getId());
+		existing.setAddressId(restaurantNew.getAddress().getId());
+
+		return restaurantGateway.save(existing);
 	}
 
 	@Override

@@ -23,5 +23,6 @@ public class RestaurantResponseDTO {
 	private LocalTime openingAt;
 	private LocalTime closingAt;
 	private AddressResponseDTO address;
-	private String owner; 
+	private String owner;
+	private Long addressId;
 }

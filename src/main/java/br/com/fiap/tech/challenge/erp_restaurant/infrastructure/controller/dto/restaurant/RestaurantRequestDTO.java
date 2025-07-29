@@ -27,8 +27,7 @@ public record RestaurantRequestDTO(
 		
 		@NotNull(message = "ownerId must be not null or empty")
 		Long ownerId,
-
-		@NotNull(message = "ownerId must be not null or empty")
+		
 		Long addressId
 		) {
 

@@ -5,6 +5,8 @@ import static br.com.fiap.tech.challenge.erp_restaurant.mapper.RestaurantMapper.
 import java.util.List;
 
 import br.com.fiap.tech.challenge.erp_restaurant.infrastructure.controller.dto.restaurant.RestaurantRequestDTO;
+import br.com.fiap.tech.challenge.erp_restaurant.mapper.AddressMapper;
+import br.com.fiap.tech.challenge.erp_restaurant.mapper.RestaurantMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +49,7 @@ public class RestaurantController {
 
 	@GetMapping("{id}")
 	public RestaurantResponseDTO getUser(@PathVariable Long id) {
-		return INSTANCE.domainToDTO(restaurantUseCase.findById(id));
+		return INSTANCE.toGetResponseDTO(restaurantUseCase.findById(id));
 	}
 	
     @DeleteMapping("{id}")
@@ -57,10 +59,12 @@ public class RestaurantController {
         restaurantUseCase.delete(id);
     }
     
-    @PutMapping
-    public RestaurantResponseDTO update (@RequestBody RestaurantRequestDTO restaurantDto) {
-        log.info("receiving restaurant to update", restaurantDto);
-        return INSTANCE.domainToDTO(restaurantUseCase.update(INSTANCE.dtoToDomain(restaurantDto)));
+    @PutMapping("{id}")
+    public RestaurantResponseDTO update (@PathVariable Long id, @RequestBody RestaurantRequestDTO restaurantDto) {
+        log.info("receiving restaurant to update", id);
+
+		var updated = restaurantUseCase.update(id, RestaurantMapper.INSTANCE.dtoToDomain(restaurantDto));
+		return RestaurantMapper.INSTANCE.domainToDTO(updated);
     }
 
 

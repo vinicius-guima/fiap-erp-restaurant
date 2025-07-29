@@ -36,6 +36,10 @@ public class User {
         this.createdAt = LocalDateTime.now();
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
 	public void setRole(Role role) {
 		this.role = role == null ? Role.CUSTOMER : role;
 	}
