@@ -18,11 +18,13 @@ public interface RestaurantMapper {
 	@Mapping(target = "address.id" , source = "addressId")
 	Restaurant dtoToDomain(RestaurantRequestDTO dto);
  
-	@Mapping(target = "owner" , source = "owner.name")
+	@Mapping(target = "ownerName" , source = "owner.name")
+	@Mapping(target = "ownerId" , source = "owner.id")
 	@Mapping(target = "addressId" , source = "address.id")
 	@Mapping(target = "address", ignore = true)
 	RestaurantResponseDTO domainToDTO(Restaurant domain);
-	@Mapping(target = "owner", source = "owner.name")
+	@Mapping(target = "ownerName", source = "owner.name")
+	@Mapping(target = "ownerId" , source = "owner.id")
 	@Mapping(target = "addressId", ignore = true)
 	@Mapping(target = "address", source = "address")
 	RestaurantResponseDTO toGetResponseDTO(Restaurant restaurant);
